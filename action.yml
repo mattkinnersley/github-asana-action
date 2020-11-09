@@ -1,5 +1,8 @@
 name: "Github / Asana Integration"
 description: "Adds a PR link to an Asana Ticket and vice versa."
+branding:
+  icon: "check-circle"
+  color: "white"
 inputs:
   asana-token:
     description: "Asana Access Token"
