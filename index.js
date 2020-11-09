@@ -66,7 +66,6 @@ const getGithubDetails = ({
     },
   },
 }) => {
-  console.log(ref, prUrl, issue_number, full_name);
   validateGithubDetails([
     { name: "pr ref", value: ref },
     { name: "pr url", value: prUrl },
