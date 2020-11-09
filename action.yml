@@ -1,13 +1,12 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: "Github / Asana Integration"
+description: "Adds a PR link to an Asana Ticket and vice versa."
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  asana-token:
+    description: "Asana Access Token"
     required: true
-    default: '1000'
-outputs:
-  time: # output will be available to future steps
-    description: 'The message to output'
+  github-token:
+    description: "Github Token"
+    required: true
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
