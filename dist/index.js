@@ -105,7 +105,6 @@ const run = async () => {
     const asanaClient = initAsana({ asanaToken });
     const octoKitClient = initOctokit({ githubToken });
 
-    console.log(github);
     const { ref, prUrl, issue_number, full_name } = getGithubDetails(github);
 
     const [owner, repo] = full_name.split("/");
@@ -127,9 +126,6 @@ const run = async () => {
       issue_number,
       client: octoKitClient,
     });
-
-    core.setOutput("pr_url", prUrl);
-    core.setOutput("asana_task_url", asanaTaskUrl);
   } catch (error) {
     core.setFailed(error.message);
   }

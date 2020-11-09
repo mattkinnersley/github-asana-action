@@ -119,9 +119,6 @@ const run = async () => {
       issue_number,
       client: octoKitClient,
     });
-
-    core.setOutput("pr_url", prUrl);
-    core.setOutput("asana_task_url", asanaTaskUrl);
   } catch (error) {
     core.setFailed(error.message);
   }
