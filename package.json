@@ -1,7 +1,7 @@
 {
-  "name": "javascript-action",
+  "name": "github-asana-action",
   "version": "1.0.0",
-  "description": "JavaScript Action Template",
+  "description": "GitHub Asana Integration Action",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
@@ -11,21 +11,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/KinnersleyM/github-asana-action.git"
   },
   "keywords": [
     "GitHub",
+    "Asana",
     "Actions",
     "JavaScript"
   ],
-  "author": "",
+  "author": "Matt Kinnersley",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/KinnersleyM/github-asana-action/issues"
   },
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/KinnersleyM/github-asana-action#readme",
   "dependencies": {
-    "@actions/core": "^1.2.5"
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "asana": "^0.18.5"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.24.0",
