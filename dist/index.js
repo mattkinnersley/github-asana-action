@@ -56,9 +56,14 @@ const commentOnIssue = async ({
 const getAsanaTaskGid = ({ ref }) => {
   const lastSlashIndex = ref.lastIndexOf("/");
   if (lastSlashIndex == -1) {
-    throw new Error(`Could not find slash in ref: ${ref}`);
+    return null;
   }
-  return ref.substring(lastSlashIndex + 1);
+  const gid = ref.substring(lastSlashIndex + 1);
+  // Check if it is a number without a decimal point
+  if (!gid || gid.indexOf(".") != -1 || isNaN(gid)) {
+    return null;
+  }
+  return gid;
 };
 
 const getGithubDetails = ({
@@ -73,7 +78,6 @@ const getGithubDetails = ({
     },
   },
 }) => {
-  console.log(ref, prUrl, issue_number, full_name);
   validateGithubDetails([
     { name: "pr ref", value: ref },
     { name: "pr url", value: prUrl },
@@ -111,21 +115,27 @@ const run = async () => {
 
     const gid = getAsanaTaskGid({ ref });
 
-    await addPRToAsanaTask({
-      gid,
-      prUrl,
-      client: asanaClient,
-    });
+    if (gid) {
+      await addPRToAsanaTask({
+        gid,
+        prUrl,
+        client: asanaClient,
+      });
 
-    const asanaTaskUrl = await getAsanaTaskUrl({ gid, client: asanaClient });
+      const asanaTaskUrl = await getAsanaTaskUrl({ gid, client: asanaClient });
 
-    await commentOnIssue({
-      asanaTaskUrl,
-      owner,
-      repo,
-      issue_number,
-      client: octoKitClient,
-    });
+      await commentOnIssue({
+        asanaTaskUrl,
+        owner,
+        repo,
+        issue_number,
+        client: octoKitClient,
+      });
+    } else {
+      core.setOutput(
+        `No Asana Task ID found in ref: ${ref} Check the branch is of the format <feature>/<id> where id is an integer and a valid Asana Task ID (found in the URL of the task).`
+      );
+    }
   } catch (error) {
     core.setFailed(error.message);
   }

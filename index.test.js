@@ -7,7 +7,9 @@ const {
 const mockGid = "12345678910";
 
 const mockRef = `some-new-feature/${mockGid}`;
-const mockInvalidRef = `some-new-feature-${mockGid}`;
+const mockMissingIdRef = `some-new-feature/`;
+const mockInvalidStructureRef = `${mockGid}/some-new-feature`;
+const mockMissingSlashRef = `some-new-feature-${mockGid}`;
 
 const mockOwner = "cool-owner";
 const mockRepo = "cool-asana-repo";
@@ -54,10 +56,14 @@ describe("getAsanaTaskGid", () => {
   it("should extract asana task id from branch", async () => {
     await expect(getAsanaTaskGid({ ref: mockRef })).toBe(mockGid);
   });
-  it("should throw error with invalid ref structure", async () => {
-    await expect(() => getAsanaTaskGid({ ref: mockInvalidRef })).toThrow(
-      `Could not find slash in ref: ${mockInvalidRef}`
-    );
+  it("should throw error with missing id", async () => {
+    await expect(getAsanaTaskGid({ ref: mockMissingIdRef })).toBeNull();
+  });
+  it("should throw error with invalid branch structure", async () => {
+    await expect(getAsanaTaskGid({ ref: mockInvalidStructureRef })).toBeNull();
+  });
+  it("should throw error with missing slash in ref", async () => {
+    await expect(getAsanaTaskGid({ ref: mockMissingSlashRef })).toBeNull();
   });
 });
 
