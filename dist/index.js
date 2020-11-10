@@ -53,16 +53,25 @@ const commentOnIssue = async ({
   });
 };
 
+const isWholeNumber = ({ gid }) => gid.indexOf(".") == -1 && !isNaN(gid);
+
+const is16Digits = ({ gid }) => gid.length == 16;
+
+const validRef = ({ ref }) => ref.lastIndexOf("/") != -1;
+
+const validGid = ({ gid }) => isWholeNumber({ gid }) && is16Digits({ gid });
+
 const getAsanaTaskGid = ({ ref }) => {
-  const lastSlashIndex = ref.lastIndexOf("/");
-  if (lastSlashIndex == -1) {
+  if (!validRef({ ref })) {
     return null;
   }
-  const gid = ref.substring(lastSlashIndex + 1);
-  // Check if it is a number without a decimal point
-  if (!gid || gid.indexOf(".") != -1 || isNaN(gid)) {
+
+  const gid = ref.substring(ref.lastIndexOf("/") + 1);
+
+  if (!validGid({ gid })) {
     return null;
   }
+
   return gid;
 };
 

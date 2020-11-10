@@ -4,12 +4,14 @@ const {
   getAsanaTask,
 } = require("./index.js");
 
-const mockGid = "12345678910";
-
+const mockGid = "1234567891234567";
+const mockShortGid = "123456789";
 const mockRef = `some-new-feature/${mockGid}`;
 const mockMissingIdRef = `some-new-feature/`;
 const mockInvalidStructureRef = `${mockGid}/some-new-feature`;
 const mockMissingSlashRef = `some-new-feature-${mockGid}`;
+const mockShortGidRef = `some-new-feature/${mockShortGid}`;
+const mockLongGidRef = `some-new-feature/${mockGid}12345`;
 
 const mockOwner = "cool-owner";
 const mockRepo = "cool-asana-repo";
@@ -64,6 +66,12 @@ describe("getAsanaTaskGid", () => {
   });
   it("should throw error with missing slash in ref", async () => {
     await expect(getAsanaTaskGid({ ref: mockMissingSlashRef })).toBeNull();
+  });
+  it("should throw error with short gid length in ref", async () => {
+    await expect(getAsanaTaskGid({ ref: mockShortGidRef })).toBeNull();
+  });
+  it("should throw error with long gid length in ref", async () => {
+    await expect(getAsanaTaskGid({ ref: mockLongGidRef })).toBeNull();
   });
 });
 
