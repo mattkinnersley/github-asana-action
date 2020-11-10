@@ -29,5 +29,5 @@ You can now consume the action by referencing the v1 branch
 uses: kinnersleym/github-asana-action@v1
 with:
   asana-token: ${{ secrets.ASANA_ACCESS_TOKEN }}
-  github-token: ${{ secrets.GITHUB_TOKEN }}0
+  github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
