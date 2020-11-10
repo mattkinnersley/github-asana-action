@@ -137,7 +137,7 @@ const run = async () => {
     } else {
       core.setOutput(
         "asana-task",
-        `No Asana Task ID found in ref: ${ref} Check the branch is of the format {feature}/{id} where id is a 16 digit integer and a valid Asana Task ID found in the URL of the task.`
+        `${ref} does not have a valid Asana Task ID. Check the branch is of the format {feature}/{id} where id is a 16 digit integer and a valid Asana Task ID found in the URL of the task.`
       );
     }
   } catch (error) {
