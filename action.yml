@@ -10,6 +10,9 @@ inputs:
   github-token:
     description: "Github Token"
     required: true
+outputs:
+  asana-task:
+    description: "Asana Task URL"
 runs:
   using: "node12"
   main: "dist/index.js"

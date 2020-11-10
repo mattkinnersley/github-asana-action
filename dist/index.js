@@ -140,9 +140,11 @@ const run = async () => {
         issue_number,
         client: octoKitClient,
       });
+      core.setOutput("asana-task", asanaTaskUrl);
     } else {
       core.setOutput(
-        `No Asana Task ID found in ref: ${ref} Check the branch is of the format <feature>/<id> where id is an integer and a valid Asana Task ID (found in the URL of the task).`
+        "asana-task",
+        `No Asana Task ID found in ref: ${ref} Check the branch is of the format {feature}/{id} where id is a 16 digit integer and a valid Asana Task ID found in the URL of the task.`
       );
     }
   } catch (error) {
